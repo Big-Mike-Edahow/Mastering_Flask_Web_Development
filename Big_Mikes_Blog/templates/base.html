@@ -1,0 +1,154 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+        integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <title>{% block title %} Big Mike's Blog {% endblock %}</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('about') }}"><i class="fa fa-fw fa-sign-in"></i>About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row row-lg-4">
+            <div class="col">
+                <div class="container bg-info rounded">
+                    <center>
+                        <i class="fas fa-comments fa-5x"></i>
+                        <h2><a class="text-white" href="{{ url_for('index') }}">Big Mike's Blog! 🧔‍♂️</a></h2>
+                        <h3>Welcome to my blog! 👋</h3>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}
+
+        <div class="row">
+            <div class="col-lg-9">
+                {% block leftbody %}
+
+                {% endblock %}
+            </div>
+            <div class="col-lg-3 rounded">
+                {% block rightbody %}
+
+                <div class="row">
+                    <div class="col">
+                        <a href="{{ url_for('create') }}"><h5>Create new post</h5></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h5>Recent Posts</h5>
+                    </div>
+                </div>
+                <ul class="list-group">
+                    {% for post in recent %}
+                    <li class="list-group-item">
+                        <a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="row">
+                    <div class="col">
+                        <h5>Popular Tags</h5>
+                    </div>
+                </div>
+                <ul class="list-group">
+                    {% for tag in top_tags %}
+                    <li class="list-group-item"><a href="{{ url_for('posts_by_tag', tag_name=tag[0].title) }}">{{
+                            tag[0].title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="p-4 shadow-sm">
+                    <div class="row">
+                        <div class="col">
+                            {% if comments | length > 0 %}
+                            <h4>Comments ({{ comments | length }})</h4>
+                            {% else %}
+                            <p></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col">
+                            {% if comments | length > 0 %}
+                            {% for comment in comments %}
+                            <div class="shadow-sm p-2">
+                                <dt>By: {{ comment.name }} on {{ comment.publish_date }}</dt>
+                                <dd>{{ comment.text }}</dd>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <p></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {% endblock %}
+
+            </div>
+        </div>
+
+        {% endblock %}
+    </div>
+
+    <br><br>
+    <footer class="footer">
+        <div class="container">
+            <h4>Hands on Web development with Flask - 2023</h4>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+

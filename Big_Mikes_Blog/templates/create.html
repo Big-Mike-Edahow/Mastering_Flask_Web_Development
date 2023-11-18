@@ -1,0 +1,40 @@
+<!-- create.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends 'base.html' %}
+
+{% block title %} Create new post {% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="p-4 shadow-sm">
+        <div class="row">
+            <div class="col">
+                <h4>New Post:</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <form method="post">
+                        <label for="title">Title: </label>
+                        <input class="form-control w-25" type="text" name="title" placeholder="Title">
+                        <br>
+                        <label for="text">Content: </label>
+                        <textarea class="form-control" name="text" placeholder="Content" rows="5"
+                            cols="60"></textarea>
+                        <br><button class="btn btn-primary" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+</html>
+
