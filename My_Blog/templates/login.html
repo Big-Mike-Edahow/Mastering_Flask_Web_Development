@@ -1,0 +1,42 @@
+<!-- login.html -->
+
+{% extends "base.html" %}
+{% block title %} Login {% endblock %}
+
+{% block content %}
+
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+        <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-4 fw-bold lh-1 mb-3">
+                Flask Login
+            </h1>
+            <p class="col-lg-10 fs-4">
+                Open-source Flask App that showcases registration, login, logout flow.
+            </p>
+        </div>
+        <div class="col-md-10 mx-auto col-lg-5">
+
+            <form method="post" action="" class="p-4 p-md-5 border rounded-3 bg-light">
+                {{ form.hidden_tag() }}
+                <div class="form-floating mb-3">
+                    {{ form.username(class="form-control") }}
+                    <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.password(class="form-control", type="password") }}
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <br />
+                <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+                <p>{{ form.submit() }}</p>
+                <hr class="my-4">
+                <h4>
+                    Dont have an account? <a href="{{ url_for('register') }}" class="text-right">Register</a>
+                </h4>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

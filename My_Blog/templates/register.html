@@ -1,0 +1,52 @@
+<!-- register.html -->
+
+{% extends "base.html" %}
+{% block title %} Register {% endblock %}
+
+{% block content %}
+
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+        <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-4 fw-bold lh-1 mb-3">
+                Flask Register
+            </h1>
+            <p class="col-lg-10 fs-4">
+                Open-source Flask app that showcases registration, login, logout flow.
+            </p>
+        </div>
+        <div class="col-md-10 mx-auto col-lg-5">
+            <form method="post" action="" class="p-4 p-md-5 border rounded-3 bg-light">
+                {{ form.hidden_tag() }}
+                <p class="fw-bold">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <span class="notification is-danger">
+                        {{ messages[0] }}<br>
+                    </span>
+                    {% else %}
+                    Add your credentials
+                    {% endif %}
+                    {% endwith %}
+                </p>
+                <br>
+                <div class="form-floating mb-3">
+                    {{ form.username(class="form-control") }}
+                    <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.password(class="form-control", type="password") }}
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <br>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+                <hr class="my-4">
+                <small class="text-muted">
+                    Already have an account? <a href="{{ url_for('login') }}" class="text-right">Login</a>
+                </small>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

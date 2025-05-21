@@ -1,0 +1,14 @@
+<!-- index.html -->
+
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+
+{% import 'macros.html' as macros %}
+
+{% block leftbody %}
+
+{{ macros.render_posts(posts) }}
+{{ macros.render_pagination(posts, 'index') }}
+
+{% endblock %}
+
